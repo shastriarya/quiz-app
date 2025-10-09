@@ -13,7 +13,7 @@ const QuizContextProvider = ({ children }) => {
   const [isQuizEnd, setIsQuizEnd] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
 
-  const backendUrl = "http://localhost:5000/api/questions";
+  const backendUrl = "https://quiz-backend-92kb.onrender.com/api/questions";
 
   const fetchQuestions = async () => {
     try {
