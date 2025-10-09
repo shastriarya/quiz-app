@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import main from "../config/db.js";
-import QuestionModel from "../models/questionModel.js";
+import main from "./config/db.js";
+import QuestionModel from "./models/question.js";
 
 dotenv.config();
 
@@ -37,7 +37,7 @@ const allQuestions = [
   },
 ];
 
-const seedData = async () => {
+const Data= async () => {
   try {
     await main();
     await QuestionModel.deleteMany({});
@@ -50,4 +50,4 @@ const seedData = async () => {
   }
 };
 
-seedData();
+Data();

@@ -13,11 +13,11 @@ const QuizContextProvider = ({ children }) => {
   const [isQuizEnd, setIsQuizEnd] = useState(false);
   const [userAnswers, setUserAnswers] = useState([]);
 
-  const backendUrl = "http://localhost:5000";
+  const backendUrl = "http://localhost:5000/api/questions";
 
   const fetchQuestions = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/question`);
+      const { data } = await axios.get(`${backendUrl}`);
       if (data.success && Array.isArray(data.questions)) {
         setQuestions(data.questions);
       } else {
