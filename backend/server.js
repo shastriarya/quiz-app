@@ -1,33 +1,33 @@
 import express from "express";
-import cors from "cors"
-import fs from "fs"
+import cors from "cors";
 import dotenv from "dotenv";
-
-
+import main from "./config/db.js";
+import QuestionModel from "./models/question.js";
 
 dotenv.config();
 
 const app = express();
-
-app.use(express.json())
-app.use(cors())
-
-// fetch question from backend
-app.get("/api/question", (req,res)=>{
-    fs.readFile("./questions.json","utf8", (err,data)=>{
-        if(err){
-            return res.status(500).send({message: "faild to load question "})
-        }
-        const questions = JSON.parse(data)
-        res.status(200).json({success:true,questions})
-    })
-})
+app.use(express.json());
+app.use(cors());
 
 
+main();
+
+
+app.get("/api/questions", async (req, res) => {
+  try {
+    const questions = await QuestionModel.find();
+    res.status(200).json({ success: true, questions });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to load questions",
+      error: err.message,
+    });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=>{
-    console.log(`server running on the port ${PORT}`)
-})
-
-
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
